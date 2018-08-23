@@ -1,0 +1,9 @@
+Posters:
+{
+  poster_name=>Char_field,
+  validation_form_from=>Date,
+  validation_form_to=>Date;
+  packages=>{},
+  services=>{},
+  background_header_image=>URL_Field,
+}
