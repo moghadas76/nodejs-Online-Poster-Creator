@@ -1,0 +1,169 @@
+@font-face {
+	font-family: 'yekan';
+	/* src: url(Yekan.eot); */
+	src: url(Yekan.eot?#iefix) format("embedded-opentype"), url(Yekan.woff) format("woff"), url(Yekan.ttf) format("truetype"), url(Yekan.svg#BYekan) format("svg");
+	font-weight: normal;
+	font-style: normal
+}
+
+.modal_header{
+  background-color: #0d3d6c;
+  color: #fff;
+}
+
+
+#del{
+	width: 100%;
+	height: 100px;
+	background-color: #8d8d8d;
+	margin-bottom: 20px;
+	border: 1px dashed #000;
+	opacity: 0.3;
+	display: none;
+	padding-top: 2%;
+	 padding-left: 40%;
+}
+
+.drop_del_items{
+	transition: 0.9s;
+	background-color: #fff;
+	border: 2px dashed #000;
+	opacity: 0.6;
+}
+
+
+.bg-success{
+  margin-left: 6%;
+  padding-left: 4%;
+  padding-top: 5%;
+  width: 80%;
+  padding-bottom: 5px;
+  padding-right: 20px;
+  border: 1px #4dca0d solid;
+  margin-bottom: 5%;
+}
+
+hr{
+  border-top: 1px solid #4dca0d;
+
+}
+
+
+.material-icons.md-18 { font-size: 18px;
+  background-color: #fff;
+ }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+body{
+  background: #7377e6;
+  font-family: 'yekan';
+}
+
+#packages{
+  width: 95.8%;
+margin-left: 18px;
+padding-right: 30px;
+background: #0d3d6c;
+/* text-align: left; */
+}
+
+#poster{
+  width: 80%;
+  padding: 0;
+background: #0d3d6c;
+
+}
+
+#btns{
+  padding-left: 40%;
+padding-top: 2%;
+padding-bottom: 2%;
+background-color: rgba(0,0,0,0.3);
+border: 1px #fff solid;
+margin-bottom: 20px;
+margin-top: 10px;
+border-radius: 5px;
+opacity: 0.5;
+}
+#btns:hover{
+  background-color: rgba(0,0,0,0.8);
+	opacity: 1;
+  transition: 0.5s;
+}
+#delete_item{
+  margin-right: 10px;
+}
+
+
+
+/* #test
+{
+    width:200px;
+    height:200px;
+    background-color:#f3f3f3;
+    padding:50px;
+    margin:50px;
+		text-align: left;
+}
+ */
+
+#poster{
+  margin-bottom: 30px;
+  left: 0;
+  top :0;
+	padding-bottom: 0px;
+}
+
+#poster:hover{
+  box-shadow:3px 6px 10px #b8bec9;
+        transition: 0.2s;
+}
+
+#export{
+  margin-left: 10px;
+}
+
+.col-md-2{
+  text-align: center;
+}
+
+.col-md-1{
+  text-align:center;
+  overflow: hidden;
+
+}
+
+.label{
+  background-color: #fff;
+  color: #8900ce;
+}
+
+#poster-items{
+  cursor: move;
+}
+
+#poster-items .col-md-1{
+  background-color: #ecd3f9;
+  color: #8900ce;
+}
+
+#poster-items .label{
+  background-color: #ecd3f9;
+}
+
+#poster-items .col-md-2{
+  background-color: #ecd3f9;
+  color: #8900ce;
+}
+
+#add_hotel_btn:hover{
+  cursor: pointer;
+  color: #07c527;
+}
+
+#delete_hotel_btn:hover{
+  cursor: pointer;
+  color: #c50707;
+}

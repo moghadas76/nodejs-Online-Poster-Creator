@@ -2,8 +2,9 @@ var express = require('express');
 var mongojs = require('mongojs');
 var path  = require('path');
 var bodyParser = require('body-parser');
+var md5 = require('md5');
 
-var db = mongojs('poster_app', ['posters']);
+var db = mongojs('poster_app', ['posters','tmp']);
 var app = express()
 
 
@@ -22,7 +23,7 @@ app.use(function (req, res, next) {
 
 app.get('/',function(req,res) {
   // find everything
-  db.mycollection.find(function (err, docs) {
+  db.posters.find(function (err, docs) {
   	// docs is an array of all the documents in mycollection
     res.render('index',{
       title: 'Posters',
@@ -33,17 +34,25 @@ app.get('/',function(req,res) {
 
 
 app.post('/posters/add',function(req, res) {
-  var newPoster ={
-    poster_name : req.body.poster_name,
-    validation_form_from : req.body.validation_form_from,
-    validation_form_to : req.body.validation_form_to,
-    packages : req.body.packages,
-    services : req.body.services
-  }
-  db.posters.insert(newPoster,function(err,res) {
-    if (err) {
-      console.log(err);
-    }
-    res.redirect('/');
-  })
+  // var newPoster ={
+  //   poster_id : md5(""+req.body['_package[package_seed]']),
+  //   poster_name : req.body['_package[package_seed]'],
+  //   validation_form_from : req.body._package.validation_form_from,
+  //   validation_form_to : req.body._package.validation_form_to,
+  //   packages : req.body._package.packages,
+  //   services : req.body._package.services
+  // };
+
+    console.log(req.body['_package[hotel]']);
+    // db.posters.insert(newPoster,function(err,res) {
+  //   if (err) {
+  //     console.log(err);
+  //   }
+  //   res.redirect('/');
+  // })
 });
+
+
+app.listen(3000,function() {
+  console.log("on port 3000 Server is Running...");
+})

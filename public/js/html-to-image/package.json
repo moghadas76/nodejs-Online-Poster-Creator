@@ -1,0 +1,118 @@
+{
+  "_args": [
+    [
+      "html-to-image",
+      "/home/intern/Downloads/bootstrap_cheatsheet/js"
+    ]
+  ],
+  "_from": "html-to-image@latest",
+  "_id": "html-to-image@0.0.2",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/html-to-image",
+  "_nodeVersion": "6.9.4",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/html-to-image-0.0.2.tgz_1512972377546_0.636259951395914"
+  },
+  "_npmUser": {
+    "email": "bubkoo.wy@gmail.com",
+    "name": "bubkoo"
+  },
+  "_npmVersion": "3.10.10",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "html-to-image",
+    "raw": "html-to-image",
+    "rawSpec": "",
+    "scope": null,
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/html-to-image/-/html-to-image-0.0.2.tgz",
+  "_shasum": "3c1ecf0f9441858da10092bcf19fc0367aa439db",
+  "_shrinkwrap": null,
+  "_spec": "html-to-image",
+  "_where": "/home/intern/Downloads/bootstrap_cheatsheet/js",
+  "author": {
+    "name": "bubkoo"
+  },
+  "bugs": {
+    "url": "https://github.com/bubkoo/html-to-image/issues"
+  },
+  "dependencies": {},
+  "description": "Generates an image from a DOM node using HTML5 canvas.",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.0.3",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-istanbul": "^4.1.5",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "chai": "^4.1.2",
+    "coveralls": "^3.0.0",
+    "cross-env": "^5.1.1",
+    "eslint": "^4.12.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.5.1",
+    "husky": "^0.14.3",
+    "mocha": "^4.0.1",
+    "nyc": "^11.3.0",
+    "rimraf": "^2.6.2"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "3c1ecf0f9441858da10092bcf19fc0367aa439db",
+    "tarball": "https://registry.npmjs.org/html-to-image/-/html-to-image-0.0.2.tgz"
+  },
+  "files": [
+    "lib",
+    "src"
+  ],
+  "gitHead": "fa7057f49fe3c79586ea843944631df8e99b2f67",
+  "homepage": "https://github.com/bubkoo/html-to-image#readme",
+  "keywords": [
+    "cavas",
+    "dom",
+    "html",
+    "image",
+    "render",
+    "screenshot",
+    "svg",
+    "vector"
+  ],
+  "license": "MIT",
+  "main": "./lib/index.js",
+  "maintainers": [
+    {
+      "name": "bubkoo",
+      "email": "bubkoo.wy@gmail.com"
+    }
+  ],
+  "name": "html-to-image",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bubkoo/html-to-image.git"
+  },
+  "scripts": {
+    "build": "rimraf lib && babel src --out-dir lib",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "lint": "eslint --ext .js,.jsx src",
+    "prebuild": "npm run lint",
+    "precommit": "npm run lint",
+    "prepublish": "npm run build",
+    "test": "cross-env NODE_ENV=test nyc mocha ./test/index.js"
+  },
+  "version": "0.0.2"
+}

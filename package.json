@@ -13,5 +13,8 @@
     "mongojs": "^2.6.0"
   },
   "author": "Seyed Mohammad Moghadas",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.18.3"
+  }
 }
