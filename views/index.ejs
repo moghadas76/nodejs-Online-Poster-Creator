@@ -110,7 +110,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="js/bootstrap.min.js"></script>
-
+<!-- <script src="js/bootstrap.js"></script> -->
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js" integrity="sha384-THVO/sM0mFD9h7dfSndI6TS0PgAGavwKvB5hAxRRvc0o9cPLohB0wb/PTA7LdUHs" crossorigin="anonymous"></script>
@@ -162,7 +162,7 @@ $(document).ready(function(){
           $( "#packages" ).disableSelection();
         } );
 
-    var existHotel = 1;
+    var existHotel = 0;
     $("#add_hotel_btn").click(function(){
         existHotel+=1;
         $(".hotel-lists").append('<div class="bg-success custom-hotel" id="hotel_' + existHotel + '"><label>Hotel Name</label><input type="text" id="hotel_name" class="form-control" placeholder="Add new hotel">'+
@@ -183,40 +183,47 @@ $(document).ready(function(){
         package_seed : Math.floor((Math.random() * 100) + 1),
         phase : $('#phase').val(),
         date : $('#s_d').val()+'/'+$('#m_d').val(),
+        number_of_hotel : existHotel,
         hotels: [],
         items: []
       }
 
-      for(var i=2;i<=existHotel;i++){
+      for(var i=1;i<=existHotel;i++){
         // var hotel_details ='<li class="list-group-item" id="poster-items"><div class="row"><div class="col-md-2 col-sm-1"><h4 class="">'+$('#hotel_'+i+' #op').val()+'</h4></div>'+'<div class="col-md-2 col-sm-1"><h4 class="">'+$('#hotel_'+i+' #tp').val()+'</h4></div>'
         // +'<div class="col-md-1 col-sm-1"><h4 class="">'+$('#hotel_'+i+' #sp').val()+'</h4></div>'
         // +'<div class="col-md-1 col-sm-1"><h4 class="">'+$('#hotel_'+i+' #sd').val()+'</h4></div>'
         // +'<div class="col-md-1 col-sm-1"><h4 class="">'+$('#hotel_'+i+' #nos').val()+'</h4></div>'
         // +'<div class="col-md-2 col-sm-1"><h4 class="">'+$('#hotel_'+i+' #hotel_name').val()+'</h4></div>';
 
-        packages.hotels.push({
-          hotel_name : ""+$('#hotel_'+i+' #hotel_name').val(),
-          number_of_star : $('#hotel_'+i+' #nos').val(),
-          stay_place : ""+$('#hotel_'+i+' #sp').val(),
-          stay_duration: ""+$('#hotel_'+i+' #sd').val(),
-          one_bed_price: ""+$('#hotel_'+i+' #op').val(),
-          two_bed_person: ""+$('#hotel_'+i+' #tp').val()
-        });
+        packages.hotels.push(
+                                  {hotel_name : ""+$('#hotel_'+i+' #hotel_name').val(),
+                                  number_of_star : $('#hotel_'+i+' #nos').val(),
+                                  stay_place : ""+$('#hotel_'+i+' #sp').val(),
+                                  stay_duration: ""+$('#hotel_'+i+' #sd').val(),
+                                  one_bed_price: ""+$('#hotel_'+i+' #op').val(),
+                                  two_bed_person: ""+$('#hotel_'+i+' #tp').val()}
+
+        );
           // $("ul#packages.list-group").append(hotel_details+new_list+"</div></li>");
         }
 
 
 
-        $.post("/posters/add",{_package: packages}).done(function( data ) {
+        $.post("/posters/add",{_package: packages},function( data ) {
+          console.log(data);
+          data = data["info"];
+          for(var i=0;i<data.length;i++){
+              data1 = data[i]["hotels"];
+            for (var j = 0; j < data1.length; j++) {
+              var hotel_details ='<li class="list-group-item" id="poster-items"><div class="row"><div class="col-md-2 col-sm-1"><h4 class="">'+data1[j]["one_bed_price"]+'</h4></div>'+'<div class="col-md-2 col-sm-1"><h4 class="">'+data1[j]["two_bed_person"]+'</h4></div>'
+              +'<div class="col-md-1 col-sm-1"><h4 class="">'+data1[j]["stay_place"]+'</h4></div>'
+              +'<div class="col-md-1 col-sm-1"><h4 class="">'+data1[j]["stay_duration"]+'</h4></div>'
+              +'<div class="col-md-1 col-sm-1"><h4 class="">'+data1[j]["number_of_star"]+'</h4></div>'
+              +'<div class="col-md-2 col-sm-1"><h4 class="">'+data1[j]["hotel_name"]+'</h4></div>';
+              $("ul#packages.list-group").append(hotel_details+new_list+"</div></li>");
+            }
+            }
 
-          for(var i=2;i<=existHotel;i++){
-            var hotel_details ='<li class="list-group-item" id="poster-items"><div class="row"><div class="col-md-2 col-sm-1"><h4 class="">'+$('#hotel_'+i+' #op').val()+'</h4></div>'+'<div class="col-md-2 col-sm-1"><h4 class="">'+$('#hotel_'+i+' #tp').val()+'</h4></div>'
-            +'<div class="col-md-1 col-sm-1"><h4 class="">'+$('#hotel_'+i+' #sp').val()+'</h4></div>'
-            +'<div class="col-md-1 col-sm-1"><h4 class="">'+$('#hotel_'+i+' #sd').val()+'</h4></div>'
-            +'<div class="col-md-1 col-sm-1"><h4 class="">'+$('#hotel_'+i+' #nos').val()+'</h4></div>'
-            +'<div class="col-md-2 col-sm-1"><h4 class="">'+$('#hotel_'+i+' #hotel_name').val()+'</h4></div>';
-            $("ul#packages.list-group").append(hotel_details+new_list+"</div></li>");
-          }
 
         });
 
@@ -226,6 +233,7 @@ $(document).ready(function(){
         +'<input type="text" class="form-control" placeholder="Add Name" id="s_d"></div><div class="form-group"><label>miladi date</label><input type="text" class="form-control" placeholder="Add Name" id="m_d"></div><div class="form-group hotel-lists"><label>Hotel</label></div><i class="material-icons" id="add_hotel_btn">add_circle</i><i class="material-icons" id="delete_hotel_btn">remove_circle</i><br><button type="submit" class="btn btn-primary">Submit</button></form></div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div></div></div>';
 
         $("#myModal").html(modeal_text);
+        $('#myModal').modal('hide');
 
       });
 
@@ -249,7 +257,7 @@ $(document).ready(function(){
 
     $("#delete_hotel_btn").click(function(){
 
-      if (existHotel===1) {
+      if (existHotel===0) {
         alert("can not remove hotel :)");
       }
       else{
