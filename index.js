@@ -3,10 +3,12 @@ var mongojs = require('mongojs');
 var path  = require('path');
 var bodyParser = require('body-parser');
 var md5 = require('md5');
+const fileUpload = require('express-fileupload');
 
 var db = mongojs('poster_app', ['posters','tmp']);
 var app = express()
 
+app.use(fileUpload());
 
 app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'views'));
@@ -35,7 +37,8 @@ app.get('/home',function (req,res) {
 app.get('/new',function(req,res) {
   var seed = md5(Math.floor((Math.random() * 100) + 1)+"");
   var new_pos = {
-    pos_id:seed
+    pos_id:seed,
+    time : new Date()
   };
   db.poster.insert(new_pos,function(err,response) {
     res.redirect('/'+seed);
@@ -46,24 +49,20 @@ app.get('/new',function(req,res) {
 app.get('/:id',function(req,res) {
 
   var doc=[],serv=[];
-  db.packages.find({poster_id:req.params.id}).toArray(function (err, docs) {
+  db.packages.find({poster_id:req.params.id},function (err, docs) {
     var func = function (packages) {
       db.items.find({poster_id:req.params.id},function (err, docs) {
-        // docs is an array of all the documents in mycollection
+        console.log(docs,packages);
         res.render('index',{
           poster_id: req.params.id,
-         title: 'Posters',
+          title: 'Posters',
          posters: packages,
          items : docs
        });
       });
     }
-    // console.log(docs);
     func(docs);
-    // return docs;
   });
-  // f2();
-  // f3(res, doc, serv);
 });
 
 
@@ -123,13 +122,23 @@ app.post('/items/add/:id',function (req,res) {
   });
 })
 
+app.post('/upload', function(req, res) {
+  if (!req.files)
+    return res.status(400).send('No files were uploaded.');
 
-// db.posters.insert(newPoster,function(err,res) {
-//   if (err) {
-//     console.log(err);
-//   }
-//   res.redirect('/');
-// })
+  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+  let sampleFile = req.files.sampleFile;
+
+  console.log(sampleFile.mv);
+  // Use the mv() method to place the file somewhere on your server
+  sampleFile.mv('/images', function(err) {
+    if (err){
+      console.log(err);
+      return res.status(500).send(err);
+    }
+    res.send('File uploaded!');
+  });
+});
 
 app.listen(3000,function() {
   console.log("on port 3000 Server is Running...");

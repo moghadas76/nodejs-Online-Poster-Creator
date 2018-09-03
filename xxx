@@ -1,0 +1,21 @@
+<div class="col-md-2 col-sm-1"><h4 ><%= hotel.two_bed_person %></h4></div>
+<div class="col-md-2 col-sm-1"><h4 ><%= hotel.one_bed_price %></h4></div>
+<div class="col-md-1 col-sm-1"><h4 ><%= hotel.stay_duration %></h4></div>
+
+<div class="col-md-1 col-sm-1">
+    <h4 ><%= hotel.stay_place %></h4>
+</div>
+<div class="col-md-1 col-sm-1">
+    <h4 ><%= hotel.number_of_star %></h4>
+</div>
+<div class="col-md-2 col-sm-1">
+    <h4 ><%= hotel.hotel_name %></h4>
+</div>
+<div class="col-md-2 col-sm-1">
+    <h4 ><%= drink.date %></h4>
+</div>
+
+  <div class="col-md-1 col-sm-1">
+      <h4 ><%= drink.phase%></h4>
+  </div>
+</div>

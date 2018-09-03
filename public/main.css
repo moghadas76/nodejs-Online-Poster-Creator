@@ -98,9 +98,16 @@ a img{
 
   .poster-container{
     display: flex;
+    /* justify-content: space-around; */
   flex-wrap: wrap;
   }
 
+.poster{
+  margin-right: 20px;
+  padding: 3%;
+  box-shadow: 0 3px 4px 0 rgba(0,0,0,.14), 0 3px 3px -2px rgba(0,0,0,.2), 0 1px 8px 0 rgba(0,0,0,.12);
+  margin-bottom: 30px;
+}
 
   .android-navigation .mdl-navigation__link {
     display: inline-block;

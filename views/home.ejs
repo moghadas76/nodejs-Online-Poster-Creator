@@ -101,8 +101,9 @@
         <div class="mdl-typography--display-1-color-contrast">your posters are here</div>
         <div class="poster-container">
           <% poster.forEach(function(item){%>
-            <div class="poster">
+            <div class="poster  mdl-js-ripple-effect">
               <a href="/<%=item.pos_id%>"><img src="img/pos.jpg" alt=""></a>
+              <h6><%=item.time%></h6>
             </div>
           <% }); %>
         </div>

@@ -11,6 +11,7 @@
     "body-parser": "*",
     "ejs": "^2.6.1",
     "express": "*",
+    "express-fileupload": "^0.4.0",
     "mongojs": "^2.6.0"
   },
   "author": "Seyed Mohammad Moghadas",

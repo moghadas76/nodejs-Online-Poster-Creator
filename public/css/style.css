@@ -34,6 +34,17 @@
 	padding: 3% 5%;
 }
 
+#uploadForm{
+	background-color: #51489a;
+    border-radius: 25px;
+    padding-left: 35%;
+    margin-bottom: 5%;
+    width: 80%;
+    margin-left: 10%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    border: dashed #fff;
+}
 
 #del{
 	width: 100%;
@@ -163,7 +174,7 @@ opacity: 0.5;
   color: #8900ce;
 }
 
-#poster-items{
+#poster-item{
   cursor: move;
 }
 
