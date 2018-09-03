@@ -21,19 +21,50 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.get('/',function(req,res) {
+var i = 0;
 
-
-  // find everything
-  db.posters.find(function (err, docs) {
-  	// docs is an array of all the documents in mycollection
-    res.render('index',{
-      title: 'Posters',
-      posters: docs
-    });
-  })
+app.get('/home',function (req,res) {
+  db.poster.find().toArray(function (err, docs) {
+    // docs is an array of all the documents in mycollection
+    res.render('home',{
+      poster: docs
+   });
+ });
 });
 
+app.get('/new',function(req,res) {
+  var seed = md5(Math.floor((Math.random() * 100) + 1)+"");
+  var new_pos = {
+    pos_id:seed
+  };
+  db.poster.insert(new_pos,function(err,response) {
+    res.redirect('/'+seed);
+  });
+});
+
+
+app.get('/:id',function(req,res) {
+
+  var doc=[],serv=[];
+  db.packages.find({poster_id:req.params.id}).toArray(function (err, docs) {
+    var func = function (packages) {
+      db.items.find({poster_id:req.params.id},function (err, docs) {
+        // docs is an array of all the documents in mycollection
+        res.render('index',{
+          poster_id: req.params.id,
+         title: 'Posters',
+         posters: packages,
+         items : docs
+       });
+      });
+    }
+    // console.log(docs);
+    func(docs);
+    // return docs;
+  });
+  // f2();
+  // f3(res, doc, serv);
+});
 
 
 function colloctHotels(params , num) {
@@ -63,41 +94,34 @@ function colloctHotels(params , num) {
 }
 
 app.post('/posters/add',function(req, res) {
-
-
+  id =  req.body['_package[package_seed]'];
   var newPoster ={
-    poster_id : md5(""+req.body['_package[package_seed]']),
+    poster_id : req.body['_package[package_seed]'],
     phase : req.body['_package[phase]'],
     date : req.body['_package[date]'],
     hotels : colloctHotels(req.body, req.body['_package[number_of_hotel]'])
   };
+  console.log(newPoster);
 
-  var num_res;
-
-  // db.posters.find(function (err, docs) {
-  //   num_res = docs.length
-  // });
-
-  // console.log( db.posters.count({"poster_id" : "123"},function(){}) );
-  // if (num_res === 0) {
-      db.packages.insert(newPoster, function () {
+      db.packages.insert(newPoster, function (err,response) {
+        res.redirect("/"+id);
       });
 
-      var upd;
-      db.packages.find(function (err, docs) {
-      	// docs is an array of all the documents in mycollection
-        res.json({ info: docs });
-        });
-
-        // return "upg";
-
-  // }
-  // else{
-    // db.posters.update({poster_id : newPoster['poster_id']}, {$set: {hotels:newPoster['hotels']}}, function (){} );
-  // }
-
-
 });
+
+app.post('/items/add/:id',function (req,res) {
+  var items = {
+    poster_id: req.params.id,
+    item_content : req.body.item_content
+  };
+
+  console.log(items);
+
+  db.items.insert(items, function (err,response) {
+    console.log("item_inserted!!");
+    res.redirect("/"+req.params.id);
+  });
+})
 
 
 // db.posters.insert(newPoster,function(err,res) {

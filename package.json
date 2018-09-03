@@ -4,6 +4,7 @@
   "description": "simple poster creator application",
   "main": "index.js",
   "scripts": {
+    "start": "webpack-dev-server --progress",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -15,6 +16,16 @@
   "author": "Seyed Mohammad Moghadas",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^1.18.3"
+    "nodemon": "^1.18.3",
+    "babel-core": "^6.22.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-env": "^1.7.0",
+    "css-loader": "^0.28.0",
+    "extract-loader": "^1.0.2",
+    "file-loader": "^1.1.11",
+    "node-sass": "^4.9.0",
+    "sass-loader": "^6.0.4",
+    "webpack": "^3.0.0",
+    "webpack-dev-server": "^2.4.3"
   }
 }

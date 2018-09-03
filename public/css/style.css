@@ -11,6 +11,29 @@
   color: #fff;
 }
 
+#service{
+	margin-left: 2%;
+	margin-right: 4%;
+	margin-bottom: 2%;
+	text-align: right;
+	background-color: #fff;
+}
+
+#form_data{
+	padding: 3% 5%;
+	background-color: #fff;
+}
+
+#poster-options{
+	box-shadow: 0 1.5px 6px rgba(0,0,0,.12);
+	padding: 3% 5%;
+}
+#packs{
+	margin-bottom: 5%;
+	box-shadow: 0 1.5px 6px rgba(0,0,0,.12);
+	padding: 3% 5%;
+}
+
 
 #del{
 	width: 100%;

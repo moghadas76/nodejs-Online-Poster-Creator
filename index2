@@ -10,8 +10,6 @@
             <!-- <div class="col-md-1 col-sm-1"> -->
               <button type="submit" class="btn btn-danger" id="export">image export</button>
               <button type="submit" class="btn btn-info" id="pdf-export">PDF export</button>
-              <a href="/home"><button type="submit" class="btn btn-success" id="home" style="margin-left:15px">home</button></a>
-
   </div>
 
   <div class="row"  id="del">
@@ -44,71 +42,30 @@
               <div class="col-md-1 col-sm-1">
                   <h4 class="label label-primary">فاز</h4>
               </div>
+
+
           </div>
         </li>
-          <% posters.forEach(function(drink) { %>
-          <li class="list-group-item" id="poster-items">
-            <div class="row">
-            <% drink.hotels.forEach(function(hotel) { %>
-              <div class="col-md-2 col-sm-1"><h4 class="label label-primary"><%= hotel.two_bed_person %></h4></div>
-              <div class="col-md-2 col-sm-1"><h4 class="label label-primary"><%= hotel.one_bed_price %></h4></div>
-              <div class="col-md-1 col-sm-1"><h4 class="label label-primary"><%= hotel.stay_duration %></h4></div>
-
-              <div class="col-md-1 col-sm-1">
-                  <h4 class="label label-primary"><%= hotel.stay_place %></h4>
-              </div>
-              <div class="col-md-1 col-sm-1">
-                  <h4 class="label label-primary"><%= hotel.number_of_star %></h4>
-              </div>
-              <div class="col-md-2 col-sm-1">
-                  <h4 class="label label-primary"><%= hotel.hotel_name %></h4>
-              </div>
-              <div class="col-md-2 col-sm-1">
-                  <h4 class="label label-primary"><%= drink.date %></h4>
-              </div>
-
-                <div class="col-md-1 col-sm-1">
-                    <h4 class="label label-primary"><%= drink.phase%></h4>
-                </div>
-              <% }); %>
-            </div>
-            <% }); %>
-          </li>
     </ul>
-    <div class="row" id="service">
-      <div class="col-md-5">
-        <h3>نکات مهم</h3>
-        <strong>xxxxxxxxxxxxxxxxxxxxxxxxx</strong>
-        <strong>xxxxxxxxxxxxxxxxxxxxxxxxx</strong>
-      </div>
-      <div class="col-md-5">
-        <h3>خدمات</h3>
-        <ul class="list-group" id="serv">
-          <% items.forEach(function(item) { %>
-          <li class="list-group-item" id="serv-items">
-            <div class="row">
-              <h4><%= item.item_content%></h4>
-            </div>
-            <% }); %>
-          </li>
-        </ul>
-      </div>
-    </div>
+    <img src="img/footer.png" class="mx-auto d-block">
   </div>
 
 
 
 
-        <div id = "form_data">
 
-        <div>
-          <fieldset disabled>
-            <input style="width:-webkit-fill-available" type="text" id="poster_id_id" name="seed">
-            </fieldset>
+    <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header modal_header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Entry section</h4>
         </div>
-
-          <div id="packs">
-          <form action="/" method="POST" id="form-tour">
+        <div class="modal-body">
+          <form action="/" method="POST">
             <div class="form-group">
               <label>Phase number</label>
               <input type="number" class="form-control" placeholder="Add Name" id="phase">
@@ -126,26 +83,23 @@
 
             <div class="form-group hotel-lists">
               <label>Hotel</label>
+
             </div>
+
+
             <i class="material-icons" id="add_hotel_btn">add_circle</i>
             <i class="material-icons" id="delete_hotel_btn">remove_circle</i>
             <br>
+
+
+
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
         </div>
-
-          <div id="poster-options">
-            <form class="form-inline" action="" method="POST" id="form-option">
-              <label for="email">option:</label>
-              <input type="text" class="form-control" id="email" name="item_content" style="width:70%">
-              <input style="width:-webkit-fill-available" type="text" hidden="true" id="poster_id_id" name="seed">
-              <button type="submit" class="btn btn-success">Add</button>
-            </form>
-          </div>
-
-
-
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
+      </div>
 
     </div>
   </div>
@@ -200,21 +154,33 @@ $(document).ready(function(){
     $("#del").toggle();
   });
 
-  $(function() {
+  $( function() {
+
           $( "#packages" ).sortable({
             items: '> #poster-items'
           });
           $( "#packages" ).disableSelection();
-        });
+        } );
 
-  $(function() {
-          $( "#serv" ).sortable({
-            items: '> #serv-items'
-          });
-          $( "#serv" ).disableSelection();
-        });
+  function print(data) {
+    console.log(data);
+    data = data["info"];
+    for(var i=0;i<data.length;i++){
+        data1 = data[i]["hotels"];
+      for (var j = 0; j < data1.length; j++) {
+        var hotel_details ='<li class="list-group-item" id="poster-items"><div class="row"><div class="col-md-2 col-sm-1"><h4 class="">'+data1[j]["one_bed_price"]+'</h4></div>'+'<div class="col-md-2 col-sm-1"><h4 class="">'+data1[j]["two_bed_person"]+'</h4></div>'
+        +'<div class="col-md-1 col-sm-1"><h4 class="">'+data1[j]["stay_place"]+'</h4></div>'
+        +'<div class="col-md-1 col-sm-1"><h4 class="">'+data1[j]["stay_duration"]+'</h4></div>'
+        +'<div class="col-md-1 col-sm-1"><h4 class="">'+data1[j]["number_of_star"]+'</h4></div>'
+        +'<div class="col-md-2 col-sm-1"><h4 class="">'+data1[j]["hotel_name"]+'</h4></div>';
+        $("ul#packages.list-group").append(hotel_details+new_list+"</div></li>");
+        }
+      }
+  }
 
 
+
+  // $(print(<%=posters%>));
 
     var existHotel = 0;
     $("#add_hotel_btn").click(function(){
@@ -226,30 +192,22 @@ $(document).ready(function(){
         +'<hr><div class="form-group"><label>2 bed price</label><br><input type="text" class="form-control" id="tp" placeholder="price..."></div>'
         +'<hr><div class="form-group"><label>1 bed price</label><br><input type="text" class="form-control" id="op" placeholder="price..."></div></div>')
     });
-    var seed = "<%=poster_id%>";
-    $("#poster_id_id").val(seed);
-    console.log(seed);
 
-
-    $("#form-option").attr('action', '/items/add/'+seed);
-
-
-    $( "#form-tour" ).submit(function( event ) {
+    $( "form" ).submit(function( event ) {
       event.preventDefault();
-      console.log("hi");
       var new_list =
       '<div class="col-md-2 col-sm-1"><h4 class="">'+$('#s_d').val()+'/'+$('#m_d').val()+'</h4></div>'
       +'<div class="col-md-1 col-sm-1"><h4 class="">'+$('#phase').val()+'</h4></div>';
 
       var packages = {
-        package_seed : seed,
+        package_seed : Math.floor((Math.random() * 100) + 1),
         phase : $('#phase').val(),
         date : $('#s_d').val()+'/'+$('#m_d').val(),
         number_of_hotel : existHotel,
         hotels: [],
         items: []
       }
-      console.log(packages);
+
       alert(existHotel);
       for(var i=1;i<=existHotel;i++){
         // var hotel_details ='<li class="list-group-item" id="poster-items"><div class="row"><div class="col-md-2 col-sm-1"><h4 class="">'+$('#hotel_'+i+' #op').val()+'</h4></div>'+'<div class="col-md-2 col-sm-1"><h4 class="">'+$('#hotel_'+i+' #tp').val()+'</h4></div>'
@@ -270,18 +228,32 @@ $(document).ready(function(){
           // $("ul#packages.list-group").append(hotel_details+new_list+"</div></li>");
         }
 
-        $('#form-tour').trigger("reset");
-        // var modeal_text = '<form action="/" method="POST" ><div class="form-group"><label>Phase number</label><input type="number" class="form-control" placeholder="Add Name" id="phase"></div><hr><div class="form-group"><label>shamsi date</label>'
-        // +'<input type="text" class="form-control" placeholder="Add Name" id="s_d"></div><div class="form-group"><label>miladi date</label><input type="text" class="form-control" placeholder="Add Name" id="m_d"></div><div class="form-group hotel-lists"><label>Hotel</label></div><i class="material-icons" id="add_hotel_btn">add_circle</i><i class="material-icons" id="delete_hotel_btn">remove_circle</i><br><button type="submit" class="btn btn-primary">Submit</button></form>';
 
-        // $("#form_data").html(modeal_text);
 
         $.post("/posters/add",{_package: packages},function( data ) {
+          // console.log(data);
+          // data = data["info"];
+          // for(var i=0;i<data.length;i++){
+          //     data1 = data[i]["hotels"];
+          //   for (var j = 0; j < data1.length; j++) {
+          //     var hotel_details ='<li class="list-group-item" id="poster-items"><div class="row"><div class="col-md-2 col-sm-1"><h4 class="">'+data1[j]["one_bed_price"]+'</h4></div>'+'<div class="col-md-2 col-sm-1"><h4 class="">'+data1[j]["two_bed_person"]+'</h4></div>'
+          //     +'<div class="col-md-1 col-sm-1"><h4 class="">'+data1[j]["stay_place"]+'</h4></div>'
+          //     +'<div class="col-md-1 col-sm-1"><h4 class="">'+data1[j]["stay_duration"]+'</h4></div>'
+          //     +'<div class="col-md-1 col-sm-1"><h4 class="">'+data1[j]["number_of_star"]+'</h4></div>'
+          //     +'<div class="col-md-2 col-sm-1"><h4 class="">'+data1[j]["hotel_name"]+'</h4></div>';
+          //     $("ul#packages.list-group").append(hotel_details+new_list+"</div></li>");
+          //     }
+          //   }
+
+
         });
 
 
 
+        var modeal_text = '<div class="modal-dialog"><div class="modal-content"><div class="modal-header modal_header"><button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Entry section</h4></div><div class="modal-body"><form action="/" method="POST" ><div class="form-group"><label>Phase number</label><input type="number" class="form-control" placeholder="Add Name" id="phase"></div><hr><div class="form-group"><label>shamsi date</label>'
+        +'<input type="text" class="form-control" placeholder="Add Name" id="s_d"></div><div class="form-group"><label>miladi date</label><input type="text" class="form-control" placeholder="Add Name" id="m_d"></div><div class="form-group hotel-lists"><label>Hotel</label></div><i class="material-icons" id="add_hotel_btn">add_circle</i><i class="material-icons" id="delete_hotel_btn">remove_circle</i><br><button type="submit" class="btn btn-primary">Submit</button></form></div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div></div></div>';
 
+        $("#myModal").html(modeal_text);
         // $('#myModal').toggle();
 
       });
@@ -299,12 +271,7 @@ $(document).ready(function(){
             drop: function(event, ui) {
                 ui.draggable.remove();
                 $("#del").toggle();
-                setTimeout(function(){
-                  alert("to undo refresh page(press F5)")
-              }, 1000);
-
             }
-
         });
 
 
