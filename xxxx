@@ -1,0 +1,22 @@
+DIR_UPLOAD + pos.background_image
+pos.color_id
+
+res.render('index',{
+  poster_id: req.params.id,
+  title: 'Posters',
+  file: DIR_UPLOAD + pos.background_image,
+  back_color : pos.color_id,
+  posters: packages,
+  items : items
+});
+
+res.json({
+  poster_id: req.params.id,
+  title: 'Posters',
+  file: DIR_UPLOAD + pos.background_image,
+  back_color : pos.color_id,
+  posters: packages,
+  items : items
+});
+
+ || file != null || file != 'uploads/null' || file != undefined

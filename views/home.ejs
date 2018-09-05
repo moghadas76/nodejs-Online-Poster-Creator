@@ -87,8 +87,45 @@
         <div class="logo-font android-slogan">Create best own posters.never need to ADOBE PS</div>
         <div class="logo-font android-sub-slogan">first login then click NEW.</div>
         <!-- <div class="logo-font android-create-character">
-          <a href=""><img src="images/andy.png"> create your android character</a>
+          <a href=""><img src="img/andy.png"> create your android character</a>
         </div> -->
+        <div class="android-screen-section mdl-typography--text-center">
+          <a name="screens"></a>
+          <div class="mdl-typography--display-1-color-contrast">Powering screens of all sizes</div>
+          <div class="android-screens">
+            <div class="android-wear android-screen">
+              <a class="android-image-link" href="">
+                <img class="android-screen-image" src="img/wear-silver-on.png">
+                <img class="android-screen-image" src="img/wear-black-on.png">
+              </a>
+              <a class="android-link mdl-typography--font-regular mdl-typography--text-uppercase" href="">Android Wear</a>
+            </div>
+            <div class="android-phone android-screen">
+              <a class="android-image-link" href="">
+                <img class="android-screen-image" src="img/nexus6-on.jpg">
+              </a>
+              <a class="android-link mdl-typography--font-regular mdl-typography--text-uppercase" href="">Phones</a>
+            </div>
+            <div class="android-tablet android-screen">
+              <a class="android-image-link" href="">
+                <img class="android-screen-image" src="img/nexus9-on.jpg">
+              </a>
+              <a class="android-link mdl-typography--font-regular mdl-typography--text-uppercase" href="">Tablets</a>
+            </div>
+            <div class="android-tv android-screen">
+              <a class="android-image-link" href="">
+                <img class="android-screen-image" src="img/tv-on.jpg">
+              </a>
+              <a class="android-link mdl-typography--font-regular mdl-typography--text-uppercase" href="">Android TV</a>
+            </div>
+            <div class="android-auto android-screen">
+              <a class="android-image-link" href="">
+                <img class="android-screen-image" src="img/auto-on.jpg">
+              </a>
+              <a class="android-link mdl-typography--font-regular mdl-typography--text-uppercase mdl-typography--text-left" href="">Coming Soon: Android Auto</a>
+            </div>
+          </div>
+        </div>
 
         <a href="#screens">
           <button class="android-fab mdl-button mdl-button--colored mdl-js-button mdl-button--fab mdl-js-ripple-effect">
@@ -102,7 +139,8 @@
         <div class="poster-container">
           <% poster.forEach(function(item){%>
             <div class="poster  mdl-js-ripple-effect">
-              <a href="/<%=item.pos_id%>"><img src="img/pos.jpg" alt=""></a>
+              <a href="/<%=item.pos_id%>"><img width="490px" height="490px" src="<%= item.background_image ? 'uploads/' + item.background_image : 'img/pos.jpg' %>" alt=""></a>
+              <h4><%=item.name%></h4>
               <h6><%=item.time%></h6>
             </div>
           <% }); %>
