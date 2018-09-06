@@ -12,7 +12,10 @@
 }
 
 #responsive-img{
-	height: 550px;
+	height: auto;
+}
+.cus-img{
+	height: auto;
 }
 
 #service{

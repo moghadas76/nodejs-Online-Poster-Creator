@@ -139,7 +139,7 @@
         <div class="poster-container">
           <% poster.forEach(function(item){%>
             <div class="poster  mdl-js-ripple-effect">
-              <a href="/<%=item.pos_id%>"><img width="490px" height="490px" src="<%= item.background_image ? 'uploads/' + item.background_image : 'img/pos.jpg' %>" alt=""></a>
+              <a href="/<%=item.pos_id%>"><img width="490px" src="<%= item.background_image ? 'uploads/' + item.background_image : 'img/pos.jpg' %>" alt=""></a>
               <h4><%=item.name%></h4>
               <h6><%=item.time%></h6>
             </div>
