@@ -1,14 +1,21 @@
 <% include partial/header %>
 
 
-<div class="container" >
+<div class="container">
 
-  <div class="row"  id="btns">
-            <button id="delete_item"><i class="material-icons md-24">delete_outline</i></button>
+  <div class=""  id="btns">
+             <button id="delete_item" class="btn-tool"><i class="material-icons md-24">delete_outline</i></button>
+
+            <!-- <form class="btn-tool" action="/pdf/test/" method="POST">
+              <input type="hidden" name="html" value="" id="html_body">
+              <input type="hidden" name="seed" id="poster_id_id">
+              <input type="hidden" name="bgc" id="bgcolor"> -->
+              <button class="btn btn-danger"  value="image" id="img_exp">image Export</button>
+            <!-- </form> -->
               <!-- <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#myModal">Add Poster Item(s)</button> -->
-              <button type="submit" class="btn btn-danger" id="export">image export</button>
-              <button type="submit" class="btn btn-info" id="pdf-export">PDF export</button>
-              <a href="/home"><button type="submit" class="btn btn-success" id="home" style="margin-left:15px">home</button></a>
+              <!-- <a href="/pdf/test" id="export-img"><button type="submit" class="btn btn-danger" id="export">image export</button></a> -->
+              <button type="submit" class="btn btn-info btn-tool" id="pdf-export">PDF export</button>
+              <a href="/home"><button type="submit" class="btn btn-success btn-tool" id="home" style="margin-left:15px">home</button></a>
 
   </div>
 
@@ -16,15 +23,16 @@
       <div class="text-drop"><h5>Drop items that want to delete them.....just HERE!</h5></div>
   </div>
 
-  <nav>
-  <div class="nav nav-tabs" id="nav-tab" role="tablist">
-    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Poster background</a>
-    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Background color</a>
-    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Coming soon...</a>
-  </div>
-</nav>
-<div class="tab-content" id="nav-tabContent">
-  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+  <ul class="nav nav-tabs" role="tablist">
+  <li role="presentation" class="active"><a href="#home22" aria-controls="home" role="tab" data-toggle="tab">header background</a></li>
+  <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">background color</a></li>
+  <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">skellton color</a></li>
+  <!-- <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li> -->
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane fade in active" id="home22">
     <br>
     <%= typeof msg != 'undefined' ? msg : '' %>
    <form id="uploadForm"
@@ -38,141 +46,138 @@
          <input class="btn btn-primary mb-2" type='submit' value='Upload' />
      </form>
   </div>
-  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+  <div role="tabpanel" class="tab-pane fade" id="profile">
     <br>
-    <form id="update-color" action='' method='POST' class="form-inline">
-      <div class="form-group mb-2">
+    <form id="update-color" action='' method='POST' class="form-inline" >
+      <div class="col-md-1 form-group">
         <input type="color" class="" name="color" id="color-id" >
       </div>
-      <br>
-      <br>
-      <div class="mb-2">
+
+      <div class="col-md-3">
         <button type="submit" class="btn btn-primary">Apply</button>
       </div>
     </form>
   </div>
-  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab"><br>...</div>
+
+  <div role="tabpanel" class="tab-pane fade" id="messages">
+    <br>
+    <form id="update-sk-color" action='' method='POST' class="form-inline">
+      <div class="col-md-1 form-group">
+        <input type="color" class="" name="sk_color" id="color-id" >
+      </div>
+      <div class="col-md-3">
+        <button type="submit" class="btn btn-primary">Apply</button>
+      </div>
+    </form>
+  </div>
+
+  <div role="tabpanel" class="tab-pane fade" id="settings">sick</div>
 </div>
 
 
-  <!-- <div class="uploadForm">
-    <div class="form-acss">
-      <%= typeof msg != 'undefined' ? msg : '' %>
-     <form id="uploadForm"
-         action=''
-         method='POST'
-         encType="multipart/form-data" class="form-inline">
-         <div class="form-group mb-2">
-           <label for="myimg" class="">Background color</label>
-           <input type="file" id="myimg" name="myImage" />
-         </div>
-           <input type="hidden" name="seed" id="upload-form-id">
-           <input class="btn btn-primary mb-2" type='submit' value='Upload' />
-       </form>
-    </div>
 
-    <div class="form-acss">
-      <form id="update-color" action='' method='POST' class="form-inline">
-          <div class="form-group mb-2">
-            <input type="text" class="form-control" name="color" id="color-id" placeholder="color code(#xxx)">
-          </div>
-          <br>
-          <br>
-          <div class="mb-2">
-            <button type="submit" class="btn btn-primary">Apply</button>
-          </div>
-        </form>
-    </div>
-  </div> -->
+<div id="poster_container">
+
 
 
   <div class="container" id="poster">
-  <div class="header-container">
 
-    <img width="1065px" class="cus-img img-fluid" src="<%= file != 'uploads/null' ? file : '/img/emp.jpg' %>" id="responsive-img">
-  </div>
+
+
+
+    <img src="<%= file != 'http://127.0.0.1:3000/uploads/null' ? file : '/img/emp.png' %>" >
+    <img src="/img/sch.png" alt="" >
+  <!-- </div> -->
       <ul class="list-group" id="packages">
-        <li class="list-group-item">
+        <li class="list-group-item" id="package-header-cols">
           <div class="row">
-          <div class="col-md-8">
+          <div class="col-md-9 col-xs-9">
             <div class="row">
-              <div class="col-md-2 col-sm-1"><h4 class="label label-primary">(یک تخته (تومان</h4></div>
-              <div class="col-md-2 col-sm-1"><h4 class="label label-primary">(دوتخته(تومان</h4></div>
-              <div class="col-md-2 col-sm-1"><h4 class="label label-primary">محل اقامت</h4></div>
+              <div class="col-md-2 col-xs-2"><h4 class="">یک تخته</h4></div>
+              <div class="col-md-2 col-xs-2"><h4 class="">(دوتخته(تومان</h4></div>
+              <div class="col-md-2 col-xs-2"><h4 class="">محل اقامت</h4></div>
 
-              <div class="col-md-2 col-sm-1">
-                  <h4 class="label label-primary">مدت اقامت</h4>
+              <div class="col-md-2 col-xs-2">
+                  <h4 class="">مدت اقامت</h4>
               </div>
-              <div class="col-md-2 col-sm-1">
-                  <h4 class="label label-primary">ستاره</h4>
+              <div class="col-md-2 col-xs-2">
+                  <h4 class="">ستاره</h4>
               </div>
-              <div class="col-md-2 col-sm-1">
-                  <h4 class="label label-primary">هتل</h4>
+              <div class="col-md-2 col-xs-2">
+                  <h4 class="">هتل</h4>
               </div>
             </div>
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-3 col-xs-3">
             <div class="row">
-              <div class="col-md-9 col-sm-1">
-                  <h4 class="label label-primary">تاریخ پکیج</h4>
+              <div class="col-md-9 col-xs-9">
+                  <h4 class="">تاریخ پکیج</h4>
               </div>
 
-                <div class="col-md-3 col-sm-1">
-                    <h4 class="label label-primary">فاز</h4>
+                <div class="col-md-3 col-xs-3">
+                    <h4 class="">فاز</h4>
                 </div>
             </div>
           </div>
-        </span>
-          <!-- <div class="row">
-
-
-          </div> -->
+        </div>
         </li>
-          <!-- <%= posters %> -->
+
+          <!-- poster generator -->
           <% for (var i=0;i<posters.length;i++){ %>
               <!-- <%= i %> -->
-            <% posters[i].hotels.forEach(function(hotel) { %>
               <li class="list-group-item" id="poster-item">
-              <div class="row">
-              <div class="col-md-2 col-sm-1"><h4 ><%= hotel.two_bed_person %></h4></div>
-              <div class="col-md-2 col-sm-1"><h4 ><%= hotel.one_bed_price %></h4></div>
-              <div class="col-md-1 col-sm-1"><h4 ><%= hotel.stay_duration %></h4></div>
+                <div class="row row_s">
+                  <div class="col-md-9 col-xs-9">
+            <% posters[i].hotels.forEach(function(hotel) { %>
+                  <div class="row pack_item">
+                    <div class="col-md-2 col-xs-2"><h4 ><%=Intl.NumberFormat().format(hotel.two_bed_person)  %></h4></div>
+                    <div class="col-md-2 col-xs-2"><h4 ><%=Intl.NumberFormat().format(hotel.one_bed_price ) %></h4></div>
+                    <div class="col-md-2 col-xs-2"><h4 ><%= hotel.stay_duration %></h4></div>
 
-              <div class="col-md-1 col-sm-1">
-                  <h4 ><%= hotel.stay_place %></h4>
-              </div>
-              <div class="col-md-1 col-sm-1">
-                  <h4 ><%= hotel.number_of_star %></h4>
-              </div>
-              <div class="col-md-2 col-sm-1">
-                  <h4 ><%= hotel.hotel_name %></h4>
-              </div>
-              <% }); %>
-              <div class="col-md-2 col-sm-1">
-                  <h4 ><%= posters[i].date %></h4>
-              </div>
-
-                <div class="col-md-1 col-sm-1">
-                    <h4 ><%= posters[i].phase%></h4>
+                    <div class="col-md-2 col-xs-2">
+                        <h4 ><%= hotel.stay_place %></h4>
+                    </div>
+                    <div class="col-md-2 col-xs-2">
+                        <h4 ><%= hotel.number_of_star %></h4>
+                    </div>
+                    <div class="col-md-2 col-xs-2">
+                        <h4 ><%= hotel.hotel_name %></h4>
+                    </div>
+                  </div>
+                    <% }); %>
                 </div>
+                  <div class="col-md-3 phase-date">
+                  <!-- <div class="row"> -->
+                    <div class="col-md-9 col-xs-9">
+                        <h4 ><%= posters[i].date.split("/")[0] %></h4>
+
+                        <h6 style="color:#bb90b7;" ><%= posters[i].date.split("/")[1] %></h6>
+                    </div>
+
+                    <div class="col-md-3 col-xs-3">
+                        <h4 ><%= posters[i].phase%></h4>
+                    </div>
+                  </div>
+                <!-- </div> -->
             </div>
             <% }; %>
           </li>
     </ul>
     <div class="row" id="service">
-      <div class="col-md-5" style="margin-left:1.5%">
+      <div class="col-md-5 col-xs-5" style="margin-left:1.5%">
         <h3>نکات مهم</h3>
-
+        <p>ارسال مبلغ 50 درصد هزینه تور در زمان ثبت نام الزامی است<br>پرواز چارتر و غیر قابل استرداد و هتل گارانتی می باش<br>در صورت ویزای فوری 10 روز قبل از پرواز مبلغ ۳۰ دلار به پکیج اضافه میگردد<br>مسولیت کنترل پاسپورت مسافر از هر نوع ممنوعیت خروج از کشور و اعتبار به عهده آژانس ثبت نام کننده می باشد</p>
       </div>
-      <div class="col-md-5" style="margin-left:15%">
+      <div class="col-md-5 col-xs-5" style="margin-left:15%">
         <h3>خدمات</h3>
         <ul class="list-group" id="serv">
           <% items.forEach(function(item) { %>
           <li class="list-group-item" id="serv-items">
-            <div class="row">
+            <!-- <div class="row"> -->
               <h4><%= item.item_content%></h4>
-            </div>
+            <!-- </div> -->
             <% }); %>
           </li>
         </ul>
@@ -180,81 +185,92 @@
     </div>
   </div>
 
+</div>
+
+
+
 <br>
-  <nav>
-    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-      <a class="nav-item nav-link active" id="nav-home-tab1" data-toggle="tab" href="#nav-home1" role="tab" aria-controls="nav-home1" aria-selected="true">Add package</a>
-      <a class="nav-item nav-link" id="nav-profile-tab1" data-toggle="tab" href="#nav-profile1" role="tab" aria-controls="nav-profile1" aria-selected="false">Add service item(s)</a>
-      <a class="nav-item nav-link" id="nav-contact-tab1" data-toggle="tab" href="#nav-contact1" role="tab" aria-controls="nav-contact1" aria-selected="false">Poster name</a>
-    </div>
-  </nav>
-
-  <div class="tab-content" id="nav-tabContent">
-      <div class="tab-pane fade show active" id="nav-home1" role="tabpanel" aria-labelledby="nav-home-tab1">
-        <div id = "form_data">
-          <div id="packs">
-          <form action="/" method="POST" id="form-tour">
-            <div class="form-group">
-              <label>Phase number</label>
-              <input required type="number" class="form-control" placeholder="Add Name" id="phase">
-            </div>
-            <hr>
-            <div class="form-group">
-              <label>shamsi date</label>
-              <input required type="text" class="form-control" placeholder="Add Name" id="s_d">
-            </div>
-
-            <div class="form-group">
-              <label>miladi date</label>
-              <input required type="text" class="form-control" placeholder="Add Name" id="m_d">
-            </div>
-
-            <div class="form-group hotel-lists">
-              <label>Hotel</label>
-            </div>
-            <i class="material-icons" id="add_hotel_btn">add_circle</i>
-            <i class="material-icons" id="delete_hotel_btn">remove_circle</i>
-            <br>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
-        </div>
 
 
+  <!-- new nav prop nav -->
+  <ul class="nav nav-tabs" role="tablist">
+  <li role="presentation" class="active"><a href="#home21" aria-controls="home" role="tab" data-toggle="tab">Poster name</a></li>
+  <li role="presentation"><a href="#profile1" aria-controls="profile" role="tab" data-toggle="tab">add package</a></li>
+  <li role="presentation"><a href="#messages1" aria-controls="messages" role="tab" data-toggle="tab">add service item</a></li>
 
+</ul>
 
-
-        </div>
-      </div>
-      <div class="tab-pane fade" id="nav-profile1" role="tabpanel" aria-labelledby="nav-profile-tab1">
-        <div id = "form_data">
-          <div id="poster-options">
-            <form class="form-inline" action="" method="POST" id="form-option">
-              <label for="email">option:</label>
-              <input type="text" class="form-control" id="email" name="item_content" style="width:70%">
-              <input style="width:-webkit-fill-available" type="text" hidden="true" id="poster_id_id" name="seed">
-              <button type="submit" class="btn btn-success">Add</button>
-            </form>
-          </div>
-        </div>
-
-
-      </div>
-      <div class="tab-pane fade" id="nav-contact1" role="tabpanel" aria-labelledby="nav-contact-tab1" style="margin-top:3%;margin-left:5%;margin-bottom:5%;box-shadow:0 1.5px 6px rgba(0,0,0,.12);padding:3%;">
-        <form class="form-inline" action="" method="POST" id="poster-name">
-          <input type="text" class="form-control" id="pos_name" name="pos_name" style="width:70%" placeholder="Enter poster name...">
-          <button type="submit" class="btn btn-success">Save</button>
-        </form>
-      </div>
+<!-- Tab panes -->
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane fade in active" id="home21">
+    <br>
+    <form class="form-inline" action="" method="POST" id="poster-name">
+      <input type="text" class="form-control" id="pos_name" name="pos_name" style="width:70%" placeholder="Enter poster name...">
+      <button type="submit" class="btn btn-success">Save</button>
+    </form>
   </div>
 
+  <div role="tabpanel" class="tab-pane fade" id="profile1">
+    <br>
+    <div id = "form_data">
+      <div id="packs">
+      <form action="/" method="POST" id="form-tour">
+        <div class="form-group">
+          <label>Phase number</label>
+          <input required type="number" class="form-control" placeholder="Add Name" id="phase">
+        </div>
+        <hr>
+        <div class="form-group">
+          <label>shamsi date</label>
+          <input required type="text" class="form-control" placeholder="Add Name" id="s_d">
+        </div>
 
+        <div class="form-group">
+          <label>miladi date</label>
+          <input required type="text" class="form-control" placeholder="Add Name" id="m_d">
+        </div>
+
+        <div class="form-group hotel-lists">
+          <label>Hotel</label>
+        </div>
+        <i class="material-icons" id="add_hotel_btn">add_circle</i>
+        <i class="material-icons" id="delete_hotel_btn">remove_circle</i>
+        <br>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+    </div>
+  </div>
+
+  <div role="tabpanel" class="tab-pane fade" id="messages1">
+    <br>
+    <div id = "form_data">
+      <div id="poster-options">
+        <form class="form-inline" action="" method="POST" id="form-option">
+          <label for="email">option:</label>
+          <input type="text" class="form-control" id="email" name="item_content" style="width:70%">
+          <input style="width:-webkit-fill-available" type="text" hidden="true" id="poster_id_id" name="seed">
+          <button type="submit" class="btn btn-success">Add</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div role="tabpanel" class="tab-pane fade" id="settings1">sick</div>
+</div>
+
+
+<br>
+<!-- <div class="cosezanet" id="kkk110">
+  <span>کیرم تو کونت</span>
+  <button type="button" name="button" id="pdfpdf">cos</button>
+</div> -->
 
   <div>
     <fieldset disabled>
       <input style="width:-webkit-fill-available" type="text" id="poster_id_id" name="seed">
       </fieldset>
   </div>
-
 
 
     </div>
@@ -265,45 +281,73 @@
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="https://fastcdn.org/FileSaver.js/1.1.20151003/FileSaver.js"></script>
 <!-- <script src="js/bootstrap.js"></script> -->
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js" integrity="sha384-THVO/sM0mFD9h7dfSndI6TS0PgAGavwKvB5hAxRRvc0o9cPLohB0wb/PTA7LdUHs" crossorigin="anonymous"></script>
-<!-- <script src="js/html2canvas.js"></script> -->
-<script src="js/html2canvas.min.js"></script>
-<script src="js/download.js"></script>
-<script src="js/index.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js" integrity="sha384-THVO/sM0mFD9h7dfSndI6TS0PgAGavwKvB5hAxRRvc0o9cPLohB0wb/PTA7LdUHs" crossorigin="anonymous"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+<script src="/js/download.js"></script>
+<script src="/js/index.js"></script>
 <!-- <script src="js/from_html.js"></script>
 <script src="js/split_text_to_size.js"></script>
 <script src="js/standard_fonts_metrics.js"></script>
 <script src="js/jspdf.js"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script> -->
 
 <script>
 
 
-
 $(document).ready(function(){
   event.preventDefault();
+
+
+$("#img_exp").click(function () {
+  html2canvas($("#poster_container"), {
+      onrendered: function (canvas) {
+          theCanvas = canvas;
+
+          // document.body.appendChild(canvas);
+
+          canvas.toBlob(function (blob) {
+              saveAs(blob, "Dashboard"+new Date()+".png");
+          });
+      }
+  });
+
+});
+
   // console.log(<%=posters%>);
   var pdf_file;
 
-  $("#export").click(function() {
-    html2canvas($("#poster"), {
-    onrendered: function (canvas) {
-        theCanvas = canvas;
 
-        // document.body.appendChild(canvas);
-        var dataURL = canvas.toDataURL();
-        download(dataURL, 'my-node.png');
-        canvas.toBlob(function (blob) {
-            saveAs(blob, "Dashboard.png");
-        });
-    }
-});
-  });
+  <% if (back_color){ %>
+  $("#poster").css("background-color","<%=back_color%>")
+  $("#bgcolor").val("<%=back_color%>")
+  <% } %>
 
+
+//pdf generator
+
+  $("#pdf-export").click(function() {
+    var doc = new jsPDF();
+    doc.addHTML($('#poster')[0], {
+      'background': '#fff',
+    }, function() {
+      doc.save('poster_'+new Date()+'.pdf');
+    });
+
+    });
+
+
+
+    var t =$("#poster_container").html();
+    // var res = t.replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    $("#html_body").val(t);
+    console.log($("#html_body").val());
+
+  // console.log($("#poster").html());
 
 
   $("#delete_item").click(function(){
@@ -343,8 +387,11 @@ $(document).ready(function(){
     var seed = "<%=poster_id%>";
     $("#poster_id_id").val(seed);
 
-    <% if (back_color){ %>
-    $("#poster").css("background-color","<%=back_color%>")
+
+
+    <% if (sk_color){ %>
+    $("#service").css("color","<%=sk_color%>")
+    $("#package-header-cols").css("color","<%=sk_color%>")
     <% } %>
 
     console.log(seed);
@@ -354,6 +401,7 @@ $(document).ready(function(){
     $("#uploadForm").attr('action', '/upload/'+seed);
     $("#update-color").attr('action', '/color/'+seed);
     $("#poster-name").attr('action', '/update_name/'+seed);
+    $("#update-sk-color").attr('action', '/update_sk_color/'+seed);
 
 
     $( "#form-tour" ).submit(function( event ) {

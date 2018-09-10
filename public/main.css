@@ -97,6 +97,7 @@ a img{
   }
 
   .poster-container{
+    margin-top: 3%;
     display: flex;
     /* justify-content: space-around; */
   flex-wrap: wrap;

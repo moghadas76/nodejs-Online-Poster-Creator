@@ -2,11 +2,16 @@ var express = require('express');
 var mongojs = require('mongojs');
 const url = require('url');
 var path  = require('path');
-var bodyParser = require('body-parser');
 var md5 = require('md5');
+var bodyParser = require('body-parser');
 const multer = require('multer');
-const DIR_UPLOAD  = "uploads/";
-
+const DIR_UPLOAD  = "http://127.0.0.1:3000/uploads/";
+var domtoimage = require('dom-to-image');
+var http = require('http');
+var phantomjs = require('phantomjs-prebuilt');
+var pdf = require('html-pdf');
+var fs = require('fs');
+// var favicon = require('serve-favicon');
 var db = mongojs('poster_app', ['posters','tmp']);
 var app = express()
 
@@ -25,6 +30,31 @@ app.use(function (req, res, next) {
 });
 
 
+
+
+app.post("/pdf/test/",function (req,res) {
+  var body = '<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="ie=edge"> <title>Etykieta</title><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script><script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> <link rel="stylesheet" href="/css/bootstrap.css"><link rel="stylesheet" href="/css/style.css"></head><body>';
+
+  var html = body+ req.body.html + '<script>$(document).ready(function(){event.preventDefault();$("#poster").css("background-color",'+req.body.bgc+');})</script></body></html>';
+  var id = req.body.seed;
+  console.log(id,html);
+  var options = { type: 'application/png',
+	orientation: 'landscape',
+	margin: { 'top': '1cm', 'left': '1cm', 'bottom': '2cm', 'right': '1cm' },
+    base: 'http://127.0.0.1:3000'
+  };
+  pdf.create(html,options).toFile('./'+new Date()+'.png',function(err, resp){
+    console.log(res.filename);
+    res.redirect('/'+id);
+    });
+
+})
+
+
+
+
+
+
 // Set The Storage Engine
 const storage = multer.diskStorage({
   destination: './public/uploads/',
@@ -41,6 +71,11 @@ const upload = multer({
     checkFileType(file, cb);
   }
 }).single('myImage');
+
+
+
+
+
 
 // Check File Type
 function checkFileType(file, cb){
@@ -62,6 +97,43 @@ function checkFileType(file, cb){
 // Public Folder
 app.use(express.static('./public'));
 
+
+
+
+
+
+// app.get('/snap', function (req, res, next) {
+//     var md5 = require('md5');
+//     var width = req.query.width,
+//        website = req.query.url;
+//
+//     if (!isNaN(width) && url.isUri(website)) {
+//         // Do stuff here
+//         var hash = md5(website);
+//       var savePath = path.join(__dirname, 'public', 'screenshots', hash) + '.png';
+//       var cmd = ['phantomjs', 'generator.js', website, savePath, width, 1].join(' ');
+//       var exec = require('child_process').exec;
+//
+//       exec(cmd, function (error) {
+//           if (error) {
+//               res.status(422);
+//               return res.json({ message: 'Something went wrong, try reloading the page' });
+//           }
+//
+//           return res.json({ path: '/screenshots/'+ hash +'.png' });
+//
+//         } else {
+//         res.status(422);
+//         return res.json({ message: 'please make sure the url is valid' });
+//     }
+// });
+
+
+
+
+
+
+
 app.post('/debug',(req,res)=>{
   console.log(req.body);
 });
@@ -76,6 +148,13 @@ app.post('/color/:id',function (req,res) {
 app.post('/update_name/:id',function (req,res) {
   console.log(req.body);
   db.poster.update({pos_id: req.params.id}, {$set: {name: req.body.pos_name}}, {multi: true}, function () {
+    res.redirect("/"+req.params.id);
+  });
+});
+
+app.post('/update_sk_color/:id',function (req,res) {
+  console.log(req.body);
+  db.poster.update({pos_id: req.params.id}, {$set: {sk_color: req.body.sk_color}}, {multi: true}, function () {
     res.redirect("/"+req.params.id);
   });
 });
@@ -123,12 +202,15 @@ app.get('/home',function (req,res) {
  });
 });
 
+
+
 app.get('/new',function(req,res) {
   var seed = md5(Math.floor((Math.random() * 100) + 1)+"");
   var new_pos = {
     pos_id:seed,
     time : new Date(),
     background_image : null,
+    sk_color : null,
     name: null
   };
   db.poster.insert(new_pos,function(err,response) {
@@ -158,6 +240,7 @@ app.get('/:id',function(req,res) {
                   title: 'Posters',
                   file: DIR_UPLOAD + pos.background_image,
                   back_color : pos.color_id,
+                  sk_color : pos.sk_color,
                   posters: packages,
                   items : items
                 });
