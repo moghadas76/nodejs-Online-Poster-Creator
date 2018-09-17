@@ -8,8 +8,8 @@ final version of poster creator
 
 Execute:
 
--go to project directory
--install node & npm
+-go to project directory   
+-install node & npm   
 -sudo npm install -g nodemon
 -npm install
 -nodemon
